@@ -1,0 +1,10 @@
+#! /bin/bash
+clear
+gifsicle -e $1 --output $HOME/.alien/exploded.gif
+for f in $HOME/.alien/*.gif.*
+ do
+   sleep .05s
+     echo -e "0;1;0;0;200;160;;;;;$f\n4;\n3;" | /usr/lib/w3m/w3mimgdisplay
+       rm $f
+ done
+clear

@@ -302,6 +302,37 @@ def main():
                     raw_input('\n  ')
                     os.system('rm $HOME/.alien/tmpimg')
                     os.system('clear')
+                elif(submissions[args.open - 1].url.endswith('gif')):
+                    import os
+                    import urllib2
+                    HOME = os.environ['HOME']
+                    url = submissions[args.open - 1].url
+
+                    file_name = url.split('/')[-1]
+                    u = urllib2.urlopen(url)
+                    if(os.path.isdir(HOME + '/.alien')==False):
+                        os.system('mkdir $HOME/.alien')
+                    f = open(HOME+'/.alien/tmpimg', 'wb')
+                    meta = u.info()
+                    file_size = int(meta.getheaders("Content-Length")[0])
+                    print_colorized("Downloading: %s Bytes: %s" % (file_name, file_size))
+
+                    file_size_dl = 0
+                    block_sz = 8192
+                    
+                    while True:
+                        buffer = u.read(block_sz)
+                        if not buffer:
+                            break
+                        file_size_dl += len(buffer)
+                        f.write(buffer)
+                        status = r"%10d  [%3.2f%%]" % (file_size_dl, file_size_dl * 100. / file_size)
+                        status = status + chr(8)*(len(status)+1)
+                        print status,
+                    f.close()
+                    print '\n'
+                    os.system('clear')
+                    os.system('./play ' + HOME + '/.alien/tmpimg')
                 else:
                     webbrowser.open(submissions[args.open - 1].url)
             except IndexError, e:
