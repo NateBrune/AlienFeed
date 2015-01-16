@@ -12,7 +12,9 @@ How to run
 alien pics -o 1 //show image in framebuffer
 alien pics -f -o 1 //show image in framebuffer full size
 alien gifs -o 1 //show animated gif in framebuffer full size
+
 Dependencies
+===
 w3m //for /usr/lib/w3m/w3mimgdisplay
 gifsicle //for exploding gif images
 Enjoy!
